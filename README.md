@@ -7,7 +7,7 @@ This is a learning and portfolio project. All event data in the repo is syntheti
 ## What is in here
 | Part | What it does |
 |------|--------------|
-| `sysmonlab/` | Rule engine: Sigma-subset parser, condition language, threshold aggregation, XML/JSONL/CSV loaders, ATT&CK coverage, simulator and evaluator. Python 3.9+, one dependency (PyYAML). |
+| `sysmonlab/` | Rule engine: Sigma-subset parser, condition language, threshold aggregation, XML/JSONL/CSV loaders, ATT&CK coverage, simulator and evaluator. Python 3.10+, one dependency (PyYAML). |
 | `rules/` | 19 detection rules covering execution, persistence, credential access, lateral movement, discovery, defense evasion and impact. Each is tagged with ATT&CK ids. |
 | `tests/` | 20 unit tests: modifiers, conditions, thresholds, XML parsing, and a ground-truth check of every shipped rule. |
 | `scripts/`, `config/` | PowerShell to build the AD lab (`lab.local`), turn on auditing, install Sysmon with a compact config. |
