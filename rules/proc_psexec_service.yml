@@ -1,0 +1,12 @@
+title: PsExec style remote service execution
+id: sl-0007
+status: stable
+description: Process launched by services.exe from the ADMIN$ share or PSEXESVC.
+tags: [attack.lateral_movement, attack.t1021.002, attack.t1569.002]
+logsource: {product: windows, category: process_creation}
+detection:
+  svc:
+    ParentImage|endswith: '\services.exe'
+    Image|contains: ['\psexesvc.exe', '\admin$\']
+  condition: svc
+level: high

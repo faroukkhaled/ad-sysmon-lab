@@ -1,0 +1,12 @@
+title: Certutil used to download or decode a file
+id: sl-0003
+status: stable
+description: certutil -urlcache / -decode is a living-off-the-land download and decode method.
+tags: [attack.command_and_control, attack.t1105, attack.defense_evasion, attack.t1140]
+logsource: {product: windows, category: process_creation}
+detection:
+  img: {Image|endswith: '\certutil.exe'}
+  args:
+    CommandLine|contains: ['-urlcache', '-decode', '-verifyctl']
+  condition: img and args
+level: medium

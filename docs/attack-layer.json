@@ -1,0 +1,129 @@
+{
+  "name": "sysmonlab coverage",
+  "versions": {
+    "attack": "14",
+    "navigator": "4.9",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "techniques": [
+    {
+      "techniqueID": "T1003.001",
+      "score": 2,
+      "comment": "Process access to LSASS memory, Credential dumping tool command line"
+    },
+    {
+      "techniqueID": "T1003.006",
+      "score": 1,
+      "comment": "DCSync style directory replication request"
+    },
+    {
+      "techniqueID": "T1018",
+      "score": 1,
+      "comment": "Burst of discovery commands on one host"
+    },
+    {
+      "techniqueID": "T1021.002",
+      "score": 1,
+      "comment": "PsExec style remote service execution"
+    },
+    {
+      "techniqueID": "T1033",
+      "score": 1,
+      "comment": "Burst of discovery commands on one host"
+    },
+    {
+      "techniqueID": "T1053.005",
+      "score": 1,
+      "comment": "Scheduled task created from a user-writable path"
+    },
+    {
+      "techniqueID": "T1059",
+      "score": 1,
+      "comment": "Office application spawns a script interpreter"
+    },
+    {
+      "techniqueID": "T1059.001",
+      "score": 1,
+      "comment": "Encoded PowerShell command line"
+    },
+    {
+      "techniqueID": "T1070.001",
+      "score": 1,
+      "comment": "Security event log cleared"
+    },
+    {
+      "techniqueID": "T1071",
+      "score": 1,
+      "comment": "Outbound connection to a common C2 port from a scripting process"
+    },
+    {
+      "techniqueID": "T1071.004",
+      "score": 1,
+      "comment": "Very long DNS query name (possible tunnelling or DGA)"
+    },
+    {
+      "techniqueID": "T1087.001",
+      "score": 1,
+      "comment": "Burst of discovery commands on one host"
+    },
+    {
+      "techniqueID": "T1098",
+      "score": 1,
+      "comment": "User added to a privileged local or domain group"
+    },
+    {
+      "techniqueID": "T1105",
+      "score": 1,
+      "comment": "Certutil used to download or decode a file"
+    },
+    {
+      "techniqueID": "T1110",
+      "score": 1,
+      "comment": "Many failed logons from one source"
+    },
+    {
+      "techniqueID": "T1140",
+      "score": 1,
+      "comment": "Certutil used to download or decode a file"
+    },
+    {
+      "techniqueID": "T1204.002",
+      "score": 1,
+      "comment": "Office application spawns a script interpreter"
+    },
+    {
+      "techniqueID": "T1490",
+      "score": 1,
+      "comment": "Volume shadow copies deleted"
+    },
+    {
+      "techniqueID": "T1546.003",
+      "score": 1,
+      "comment": "WMI event consumer persistence"
+    },
+    {
+      "techniqueID": "T1547.001",
+      "score": 2,
+      "comment": "Executable written to a Startup folder, Run key persistence"
+    },
+    {
+      "techniqueID": "T1558.003",
+      "score": 1,
+      "comment": "Kerberos service ticket with RC4 encryption (Kerberoasting)"
+    },
+    {
+      "techniqueID": "T1569.002",
+      "score": 1,
+      "comment": "PsExec style remote service execution"
+    }
+  ],
+  "gradient": {
+    "colors": [
+      "#ffffff",
+      "#66b1ff"
+    ],
+    "minValue": 0,
+    "maxValue": 4
+  }
+}

@@ -1,0 +1,28 @@
+<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+  <System>
+    <Provider Name="Microsoft-Windows-Sysmon" Guid="{5770385F-C22A-43E0-BF4C-06F5698FFBD9}"/>
+    <EventID>1</EventID>
+    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+    <Computer>WS01.lab.local</Computer>
+    <TimeCreated SystemTime="2026-03-01T09:14:32.000000000Z"/>
+  </System>
+  <EventData>
+    <Data Name="Image">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Data>
+    <Data Name="CommandLine">powershell.exe -nop -w hidden -enc SQBFAFgA</Data>
+    <Data Name="ParentImage">C:\Program Files\Microsoft Office\WINWORD.EXE</Data>
+    <Data Name="User">LAB\bob</Data>
+  </EventData>
+</Event>
+<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+  <System>
+    <Provider Name="Microsoft-Windows-Sysmon"/>
+    <EventID>10</EventID>
+    <Computer>WS01.lab.local</Computer>
+    <TimeCreated SystemTime="2026-03-01T09:20:00.000000000Z"/>
+  </System>
+  <EventData>
+    <Data Name="SourceImage">C:\Users\Public\a.exe</Data>
+    <Data Name="TargetImage">C:\Windows\System32\lsass.exe</Data>
+    <Data Name="GrantedAccess">0x1410</Data>
+  </EventData>
+</Event>

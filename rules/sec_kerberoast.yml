@@ -1,0 +1,15 @@
+title: Kerberos service ticket with RC4 encryption (Kerberoasting)
+id: sl-0015
+status: stable
+description: Event 4769 with ticket encryption 0x17 requested for non-machine service accounts, many in a short time.
+tags: [attack.credential_access, attack.t1558.003]
+logsource: {product: windows, service: security}
+detection:
+  tgs:
+    EventID: 4769
+    TicketEncryptionType: '0x17'
+  machine: {ServiceName|endswith: '$'}
+  krbtgt: {ServiceName: 'krbtgt'}
+  condition: tgs and not machine and not krbtgt
+x-threshold: {group_by: [IpAddress], count: 3, window: 60}
+level: high

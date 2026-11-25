@@ -1,0 +1,11 @@
+title: User added to a privileged local or domain group
+id: sl-0018
+status: stable
+description: Events 4728, 4732 and 4756 with an administrative group name.
+tags: [attack.persistence, attack.t1098]
+logsource: {product: windows, service: security}
+detection:
+  ev: {EventID: [4728, 4732, 4756]}
+  grp: {TargetUserName: ['Administrators', 'Domain Admins', 'Enterprise Admins']}
+  condition: ev and grp
+level: high

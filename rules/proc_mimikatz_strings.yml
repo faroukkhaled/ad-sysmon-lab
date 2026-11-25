@@ -1,0 +1,11 @@
+title: Credential dumping tool command line
+id: sl-0005
+status: stable
+description: Command lines containing well-known credential dumping module names.
+tags: [attack.credential_access, attack.t1003.001]
+logsource: {product: windows, category: process_creation}
+detection:
+  words:
+    CommandLine|contains: ['sekurlsa::', 'lsadump::', 'privilege::debug', 'kerberos::ptt']
+  condition: words
+level: critical

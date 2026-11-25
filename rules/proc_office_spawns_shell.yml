@@ -1,0 +1,13 @@
+title: Office application spawns a script interpreter
+id: sl-0002
+status: stable
+description: Word, Excel or Outlook starting cmd, PowerShell, wscript, mshta etc. (macro or exploit).
+tags: [attack.initial_access, attack.t1204.002, attack.t1059]
+logsource: {product: windows, category: process_creation}
+detection:
+  parent:
+    ParentImage|endswith: ['\winword.exe', '\excel.exe', '\outlook.exe', '\powerpnt.exe']
+  child:
+    Image|endswith: ['\powershell.exe', '\cmd.exe', '\wscript.exe', '\cscript.exe', '\mshta.exe', '\rundll32.exe']
+  condition: parent and child
+level: high

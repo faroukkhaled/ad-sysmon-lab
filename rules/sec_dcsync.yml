@@ -1,0 +1,13 @@
+title: DCSync style directory replication request
+id: sl-0017
+status: stable
+description: Event 4662 for replication GUIDs by a non domain controller account.
+tags: [attack.credential_access, attack.t1003.006]
+logsource: {product: windows, service: security}
+detection:
+  ev: {EventID: 4662}
+  guid:
+    Properties|contains: ['1131f6aa-9c07-11d1-f79f-00c04fc2dcd2', '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2']
+  dc: {SubjectUserName|endswith: '$'}
+  condition: ev and guid and not dc
+level: critical

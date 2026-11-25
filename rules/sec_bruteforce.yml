@@ -1,0 +1,11 @@
+title: Many failed logons from one source
+id: sl-0016
+status: stable
+description: Event 4625 repeated from the same IP address.
+tags: [attack.credential_access, attack.t1110]
+logsource: {product: windows, service: security}
+detection:
+  fail: {EventID: 4625}
+  condition: fail
+x-threshold: {group_by: [IpAddress], count: 5, window: 120}
+level: medium

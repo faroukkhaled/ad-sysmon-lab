@@ -1,0 +1,11 @@
+title: Executable written to a Startup folder
+id: sl-0013
+status: stable
+description: Binary or script dropped into the user or all-users Startup folder.
+tags: [attack.persistence, attack.t1547.001]
+logsource: {product: windows, category: file_event}
+detection:
+  folder: {TargetFilename|contains: '\Start Menu\Programs\Startup\'}
+  ext: {TargetFilename|endswith: ['.exe', '.dll', '.bat', '.vbs', '.ps1', '.js', '.lnk']}
+  condition: folder and ext
+level: medium

@@ -1,0 +1,10 @@
+title: WMI event consumer persistence
+id: sl-0012
+status: stable
+description: Sysmon WMI events 19, 20 and 21 (filter, consumer, binding created).
+tags: [attack.persistence, attack.t1546.003]
+logsource: {product: windows, category: wmi_event}
+detection:
+  any: {EventID: [19, 20, 21]}
+  condition: any
+level: high

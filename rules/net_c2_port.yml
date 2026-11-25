@@ -1,0 +1,15 @@
+title: Outbound connection to a common C2 port from a scripting process
+id: sl-0009
+status: stable
+description: PowerShell, wscript or mshta connecting out on ports often used by frameworks.
+tags: [attack.command_and_control, attack.t1071]
+logsource: {product: windows, category: network_connection}
+detection:
+  proc:
+    Image|endswith: ['\powershell.exe', '\wscript.exe', '\mshta.exe', '\rundll32.exe']
+  port:
+    DestinationPort: [4444, 1337, 8888, 9001]
+  private:
+    DestinationIp|cidr: ['10.0.0.0/8', '192.168.0.0/16', '172.16.0.0/12']
+  condition: proc and port and not private
+level: high

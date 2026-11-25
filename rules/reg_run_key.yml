@@ -1,0 +1,13 @@
+title: Run key persistence
+id: sl-0011
+status: stable
+description: Value written under a CurrentVersion\Run key.
+tags: [attack.persistence, attack.t1547.001]
+logsource: {product: windows, category: registry_event}
+detection:
+  key:
+    TargetObject|contains: ['\CurrentVersion\Run\', '\CurrentVersion\RunOnce\']
+  filt:
+    Image|endswith: ['\msiexec.exe', '\OneDriveSetup.exe']
+  condition: key and not filt
+level: medium

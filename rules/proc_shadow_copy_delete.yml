@@ -1,0 +1,15 @@
+title: Volume shadow copies deleted
+id: sl-0006
+status: stable
+description: vssadmin or wmic deleting shadow copies, typical ransomware preparation.
+tags: [attack.impact, attack.t1490]
+logsource: {product: windows, category: process_creation}
+detection:
+  vss:
+    Image|endswith: '\vssadmin.exe'
+    CommandLine|contains|all: ['delete', 'shadows']
+  wmic:
+    Image|endswith: '\wmic.exe'
+    CommandLine|contains|all: ['shadowcopy', 'delete']
+  condition: vss or wmic
+level: critical

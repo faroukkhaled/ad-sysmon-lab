@@ -1,0 +1,12 @@
+title: Burst of discovery commands on one host
+id: sl-0008
+status: experimental
+description: Several built-in discovery tools run within two minutes on the same host.
+tags: [attack.discovery, attack.t1033, attack.t1087.001, attack.t1018]
+logsource: {product: windows, category: process_creation}
+detection:
+  recon:
+    Image|endswith: ['\whoami.exe', '\net.exe', '\net1.exe', '\nltest.exe', '\systeminfo.exe', '\ipconfig.exe', '\arp.exe']
+  condition: recon
+x-threshold: {group_by: [Computer], count: 4, window: 120}
+level: medium

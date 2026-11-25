@@ -1,0 +1,13 @@
+title: Encoded PowerShell command line
+id: sl-0001
+status: stable
+description: PowerShell started with an encoded command, often used to hide payloads.
+tags: [attack.execution, attack.t1059.001]
+logsource: {product: windows, category: process_creation}
+detection:
+  img: {Image|endswith: '\powershell.exe'}
+  enc:
+    CommandLine|contains: [' -enc ', ' -encodedcommand ', ' -e JAB', ' -ec ']
+  condition: img and enc
+falsepositives: [Some management tools use encoded commands]
+level: high
