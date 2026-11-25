@@ -1,0 +1,54 @@
+<Sysmon schemaversion="4.90">
+  <HashAlgorithms>sha256</HashAlgorithms>
+  <EventFiltering>
+    <!-- 1: Process creation. Log everything except noisy known-good parents. -->
+    <RuleGroup name="proc" groupRelation="or">
+      <ProcessCreate onmatch="exclude">
+        <ParentImage condition="is">C:\Windows\System32\svchost.exe</ParentImage>
+        <Image condition="is">C:\Windows\System32\conhost.exe</Image>
+      </ProcessCreate>
+    </RuleGroup>
+    <!-- 3: Network connections from scripting and LOLBins -->
+    <RuleGroup name="net" groupRelation="or">
+      <NetworkConnect onmatch="include">
+        <Image condition="end with">powershell.exe</Image>
+        <Image condition="end with">cmd.exe</Image>
+        <Image condition="end with">mshta.exe</Image>
+        <Image condition="end with">rundll32.exe</Image>
+        <Image condition="end with">certutil.exe</Image>
+        <DestinationPort condition="is">4444</DestinationPort>
+      </NetworkConnect>
+    </RuleGroup>
+    <!-- 10: Access to LSASS (credential dumping) -->
+    <RuleGroup name="lsass" groupRelation="or">
+      <ProcessAccess onmatch="include">
+        <TargetImage condition="is">C:\Windows\System32\lsass.exe</TargetImage>
+      </ProcessAccess>
+    </RuleGroup>
+    <!-- 11: File creation in user-writable and startup locations -->
+    <RuleGroup name="file" groupRelation="or">
+      <FileCreate onmatch="include">
+        <TargetFilename condition="contains">\Start Menu\Programs\Startup\</TargetFilename>
+        <TargetFilename condition="contains">\AppData\Local\Temp\</TargetFilename>
+        <TargetFilename condition="end with">.ps1</TargetFilename>
+      </FileCreate>
+    </RuleGroup>
+    <!-- 12/13/14: Registry persistence -->
+    <RuleGroup name="reg" groupRelation="or">
+      <RegistryEvent onmatch="include">
+        <TargetObject condition="contains">\CurrentVersion\Run</TargetObject>
+        <TargetObject condition="contains">\Services\</TargetObject>
+      </RegistryEvent>
+    </RuleGroup>
+    <!-- 19/20/21: WMI persistence -->
+    <RuleGroup name="wmi" groupRelation="or">
+      <WmiEvent onmatch="include"><Operation condition="is">Created</Operation></WmiEvent>
+    </RuleGroup>
+    <!-- 22: DNS queries -->
+    <RuleGroup name="dns" groupRelation="or">
+      <DnsQuery onmatch="exclude">
+        <QueryName condition="end with">.microsoft.com</QueryName>
+      </DnsQuery>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>
