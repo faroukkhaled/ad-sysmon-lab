@@ -1,3 +1,5 @@
 # Byte-compiled
 __pycache__/
 *.pyc
+data/real/schtasks_persistence.jsonl
+data/real/wmi_event_subscription.jsonl

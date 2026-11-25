@@ -34,8 +34,8 @@
     },
     {
       "techniqueID": "T1053.005",
-      "score": 1,
-      "comment": "Scheduled task created from a user-writable path"
+      "score": 2,
+      "comment": "Scheduled task created from a user-writable path, Scheduled task that runs a script interpreter"
     },
     {
       "techniqueID": "T1059",
@@ -88,9 +88,24 @@
       "comment": "Certutil used to download or decode a file"
     },
     {
+      "techniqueID": "T1197",
+      "score": 1,
+      "comment": "bitsadmin used to download a file"
+    },
+    {
       "techniqueID": "T1204.002",
       "score": 1,
       "comment": "Office application spawns a script interpreter"
+    },
+    {
+      "techniqueID": "T1218.005",
+      "score": 1,
+      "comment": "mshta executing inline script or remote content"
+    },
+    {
+      "techniqueID": "T1218.010",
+      "score": 1,
+      "comment": "regsvr32 loading a remote scriptlet"
     },
     {
       "techniqueID": "T1490",

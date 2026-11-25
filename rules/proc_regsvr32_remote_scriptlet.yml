@@ -1,0 +1,12 @@
+title: regsvr32 loading a remote scriptlet
+id: sl-0021
+status: experimental
+description: "regsvr32 /i:http... scrobj.dll runs a remote scriptlet without writing a file (Squiblydoo)."
+tags: [attack.defense_evasion, attack.t1218.010]
+logsource: {product: windows, category: process_creation}
+detection:
+  img: {Image|endswith: '\regsvr32.exe'}
+  remote:
+    CommandLine|contains: ['/i:http', 'scrobj.dll']
+  condition: img and remote
+level: high

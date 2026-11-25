@@ -2,14 +2,14 @@
 
 A home lab for Windows detection engineering, plus a Python detection engine that runs Sigma-style rules over Sysmon and Windows Security events and measures how good the rules are.
 
-This is a learning and portfolio project. All event data in the repo is synthetic. Lab scripts are for an isolated lab only.
+This is a learning and portfolio project, built with AI assistance. `data/sample_*` and the simulator are synthetic. `data/real/` holds real attack-emulation telemetry from the public OTRF Security-Datasets project (MIT licence), recorded in OTRF's lab. No employer, bank or customer data is used, and this repo is not production SOC experience. Lab scripts are for an isolated lab only.
 
 ## What is in here
 | Part | What it does |
 |------|--------------|
 | `sysmonlab/` | Rule engine: Sigma-subset parser, condition language, threshold aggregation, XML/JSONL/CSV loaders, ATT&CK coverage, simulator and evaluator. Python 3.10+, one dependency (PyYAML). |
-| `rules/` | 19 detection rules covering execution, persistence, credential access, lateral movement, discovery, defense evasion and impact. Each is tagged with ATT&CK ids. |
-| `tests/` | 20 unit tests: modifiers, conditions, thresholds, XML parsing, and a ground-truth check of every shipped rule. |
+| `rules/` | 23 detection rules covering execution, persistence, credential access, lateral movement, discovery, defense evasion and impact. Each is tagged with ATT&CK ids. |
+| `tests/` | 21 unit tests: modifiers, conditions, thresholds, XML parsing, and a ground-truth check of every shipped rule. |
 | `scripts/`, `config/` | PowerShell to build the AD lab (`lab.local`), turn on auditing, install Sysmon with a compact config. |
 | `docs/` | Detection map, rule-writing guide, generated ATT&CK coverage and a Navigator layer. |
 
@@ -25,6 +25,13 @@ python -m unittest discover -s tests
 ```
 
 `evaluate` generates benign noise plus a multi-stage intrusion (macro phishing, persistence, credential access, recon, lateral movement, impact), runs every rule and reports missed detections and false positives. It exits non-zero if either is found, and CI runs it on every push.
+
+## Results on real telemetry
+```bash
+python tools/fetch_otrf.py     # optional: also fetches the two large datasets
+python tools/eval_real.py
+```
+`tools/eval_real.py` runs every rule over the OTRF captures and compares with the attack that was emulated. The first run on real data found a real miss: a SYSTEM logon task that launched encoded PowerShell was not caught by `sl-0004`, which only looked at user-writable paths. It also found no rules at all for regsvr32 scriptlets, mshta and bitsadmin. Rules `sl-0020` to `sl-0023` were added for those. Sample output is in `docs/real-data-results.md`. Other hits on these files (for example event 1102 in a lab where the log was cleared between runs) are listed as extra hits, not hidden.
 
 ## How the engine works
 1. Events from any source are flattened to Sysmon field names (`Image`, `CommandLine`, `TargetObject`, ...).

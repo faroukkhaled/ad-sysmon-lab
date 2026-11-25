@@ -1,0 +1,12 @@
+title: mshta executing inline script or remote content
+id: sl-0022
+status: experimental
+description: "mshta with vbscript:, javascript: or an http URL is a common proxy-execution method."
+tags: [attack.defense_evasion, attack.t1218.005]
+logsource: {product: windows, category: process_creation}
+detection:
+  img: {Image|endswith: '\mshta.exe'}
+  inline:
+    CommandLine|contains: ['vbscript:', 'javascript:', 'http://', 'https://']
+  condition: img and inline
+level: high

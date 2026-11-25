@@ -83,6 +83,14 @@ def normalise(ev):
             out["EventID"] = 0
     if "Channel" not in out:
         out["Channel"] = "Security" if (out.get("EventID", 0) >= 4000 or out.get("EventID") == 1102) else "Microsoft-Windows-Sysmon/Operational"
+    # field aliases used by other collectors (e.g. OTRF / Mordor JSON exports)
+    if "Computer" not in out and out.get("Hostname"):
+        out["Computer"] = out["Hostname"]
+    if "UtcTime" not in out:
+        for alt in ("TimeCreated", "EventTime", "@timestamp"):
+            if out.get(alt):
+                out["UtcTime"] = out[alt]
+                break
     if "Image" in out and "ProcessName" not in out:
         out["ProcessName"] = out["Image"].rsplit("\\", 1)[-1]
     return out

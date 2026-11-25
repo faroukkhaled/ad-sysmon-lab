@@ -1,0 +1,11 @@
+title: bitsadmin used to download a file
+id: sl-0023
+status: experimental
+description: "bitsadmin /transfer fetches a remote file through BITS."
+tags: [attack.defense_evasion, attack.persistence, attack.t1197]
+logsource: {product: windows, category: process_creation}
+detection:
+  img: {Image|endswith: '\bitsadmin.exe'}
+  args: {CommandLine|contains: '/transfer'}
+  condition: img and args
+level: medium

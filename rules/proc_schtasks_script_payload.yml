@@ -1,0 +1,13 @@
+title: Scheduled task that runs a script interpreter
+id: sl-0020
+status: experimental
+description: "schtasks /create whose action launches PowerShell, cmd, mshta or wscript. Found by running the rule set over real OTRF telemetry, where a SYSTEM logon task launched encoded PowerShell and sl-0004 missed it."
+tags: [attack.persistence, attack.execution, attack.t1053.005]
+logsource: {product: windows, category: process_creation}
+detection:
+  img: {Image|endswith: '\schtasks.exe'}
+  create: {CommandLine|contains: '/create'}
+  payload:
+    CommandLine|contains: ['powershell', 'cmd.exe /c', 'mshta', 'wscript', 'cscript']
+  condition: img and create and payload
+level: high

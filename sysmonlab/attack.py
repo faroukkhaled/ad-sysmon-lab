@@ -23,6 +23,9 @@ TECHNIQUES = {
     "T1558.003": ("Kerberoasting", "credential-access"),
     "T1110": ("Brute Force", "credential-access"),
     "T1098": ("Account Manipulation", "persistence"),
+    "T1197": ("BITS Jobs", "defense-evasion"),
+    "T1218.005": ("Mshta", "defense-evasion"),
+    "T1218.010": ("Regsvr32", "defense-evasion"),
     "T1070.001": ("Clear Windows Event Logs", "defense-evasion"),
 }
 
