@@ -55,3 +55,28 @@ See `docs/writing-rules.md` to add rules, and `docs/coverage.md` for what is cov
 
 ## Limitations
 The condition language is a subset of Sigma (no aggregation conditions or `near`). Thresholds fire once per group and do not reset. Rules are starting points: tune them against your own environment before relying on them.
+
+## Architecture
+```mermaid
+flowchart LR
+    A["Sysmon XML / JSONL / CSV<br/>or simulator"] --> B["events.py<br/>flatten to Sysmon field names"]
+    R["rules/*.yml<br/>Sigma-subset rules"] --> C["rules.py<br/>compile selections and conditions"]
+    B --> D["engine.py<br/>match rules, thresholds"]
+    C --> D
+    D --> E["alerts"]
+    S["simulate.py<br/>labelled intrusion + noise"] --> F["evaluate: missed / false positives"]
+    E --> F
+    R --> G["attack.py<br/>ATT&CK coverage + Navigator layer"]
+```
+
+Detection rules with ATT&CK mapping: [docs/detection-map.md](docs/detection-map.md) and the generated [docs/coverage.md](docs/coverage.md).
+
+## Scope and limits
+**Tested**
+- 21 unit tests (modifiers, conditions, thresholds, XML parsing, a ground-truth check of every shipped rule). `validate`, `evaluate` and the tests run in GitHub Actions on Python 3.11 and 3.12. I also ran the tests locally on Python 3.10.12 on 26 Nov 2026: all pass.
+- Detection accuracy on the repo's own labelled simulation (which I also wrote) and on the public OTRF captures in `data/real/` (see `docs/real-data-results.md`).
+
+**Not tested**
+- any live Windows lab run end to end, the PowerShell lab scripts in `scripts/` (not executed in CI or locally), performance on large logs, Sigma features outside the supported subset, or any employer or production environment.
+
+**Licence:** MIT, see `LICENSE`. Security reports: see `SECURITY.md`.
